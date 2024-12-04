@@ -67,7 +67,7 @@ export default function SignupPage() {
               }
             />
           </InputWrapper>
-          {password != confirmPassword && (
+          {password !== confirmPassword && (
             <ErrorMessage data-testid="error-message">
               비밀번호가 일치하지 않습니다
             </ErrorMessage>
