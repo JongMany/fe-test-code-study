@@ -1,4 +1,5 @@
 import "@testing-library/jest-dom"; // jsdom matcher
+import * as nock from "nock";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
 import {
@@ -47,9 +48,20 @@ describe("로그인 테스트", () => {
   });
 
   test("로그인에 실패하면 에러 메시지가 나타난다.", async () => {
+    const requestCallback = () => {
+      console.log("Request was called");
+    };
+    nock("https://inflearn.byeongjinkang.com")
+      .post("/user/login", {
+        username: "ptge",
+        password: /.+/i,
+      })
+      .reply(400, { msg: "NO_SUCH_USER" })
+      .on("request", requestCallback);
     const wrapper = ({ children }: PropsWithChildren) => (
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     );
+    const { result } = renderHook(() => useLogin(), { wrapper });
 
     const emailInput = screen.getByLabelText("이메일");
     const passwordInput = screen.getByLabelText("비밀번호");
@@ -61,10 +73,9 @@ describe("로그인 테스트", () => {
     const loginButton = screen.getByRole("button", { name: /로그인/i });
     fireEvent.click(loginButton);
 
-    const { result } = renderHook(() => useLogin(), { wrapper });
-
     // Then - 에러 메시지가 나타나야 한다.
     await waitFor(() => result.current.isError);
+
     const errorMessage = await screen.findByTestId("error-message");
     expect(errorMessage).toBeInTheDocument();
   });

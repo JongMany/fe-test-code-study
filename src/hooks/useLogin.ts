@@ -21,8 +21,8 @@ const postLogin = async ({ username, password }: LoginProps) => {
   return data;
 };
 
-const useLogin = () =>
-  useMutation(
+const useLogin = () => {
+  return useMutation(
     ["login"],
     async (loginInfo: LoginProps) => postLogin(loginInfo),
     {
@@ -31,5 +31,6 @@ const useLogin = () =>
       },
     }
   );
+};
 
 export default useLogin;
