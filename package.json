@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "jest --watchAll",
-    "e2e": "cypress run"
+    "e2e": "cypress open",
+    "e2e:run": "cypress run"
   },
   "dependencies": {
     "@babel/runtime": "^7.22.6",
@@ -38,6 +39,7 @@
     "@testing-library/react": "^16.0.1",
     "@types/cypress": "^1.1.6",
     "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
