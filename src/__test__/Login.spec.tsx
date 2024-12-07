@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom"; // jsdom matcher
-import * as nock from "nock";
+import nock from "nock";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
 import {
@@ -51,7 +51,8 @@ describe("로그인 테스트", () => {
     const requestCallback = () => {
       console.log("Request was called");
     };
-    nock("https://inflearn.byeongjinkang.com")
+    // nock("https://inflearn.byeongjinkang.com")
+    nock("https://wanted.byeongjinkang.com")
       .post("/user/login", {
         username: "ptge",
         password: /.+/i,

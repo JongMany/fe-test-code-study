@@ -7,8 +7,9 @@
     "skipLibCheck": true,
     "baseUrl": "src",
     "allowSyntheticDefaultImports": true,
-    "types": ["cypress"],
+    "types": ["cypress", "node", "jest", "@testing-library/jest-dom"],
     "allowImportingTsExtensions": true,
+    "esModuleInterop": true,
 
     /* Bundler mode */
     "moduleResolution": "node",
@@ -24,6 +25,13 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "cypress/e2e/3-order/order-cy.ts", "**/*.ts"]
+
+  "include": [
+    "src",
+    "cypress/e2e/3-order/order-cy.ts",
+    "./src/**/**.*",
+    "./jest.setup.ts",
+    "jest.config.ts"
+  ]
   // "references": [{ "path": "./tsconfig.node.json" }]
 }
