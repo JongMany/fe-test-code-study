@@ -12,7 +12,19 @@ describe("로그인 화면", () => {
     cy.get("@emailInput").invoke("val").should("eq", "test@example.com");
     cy.get("@passwordInput").invoke("val").should("eq", "password123");
 
+    // request intercepts
+    cy.intercept(
+      {
+        method: "POST",
+        url: "/user/login",
+      },
+      {
+        token: "AUTH_TOKEN",
+      }
+    ).as("login");
+
     cy.get("[data-cy=loginButton]").should("exist").click();
+
     // Then - 로그인에 성공한다. 메인화면 으로 이동한다.
     cy.url().should("include", "http://localhost:5173/");
   });
