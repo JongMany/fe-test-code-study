@@ -36,6 +36,7 @@ export default function RestaurantListPage() {
     <Wrapper>
       {restaurantList?.map((restaurant) => (
         <RestaurantListBtn
+          data-cy={restaurant.id}
           key={restaurant.id}
           onClick={() => handleRestauratClick(restaurant.id, restaurant.name)}
         >
