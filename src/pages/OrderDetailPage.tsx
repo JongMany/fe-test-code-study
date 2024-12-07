@@ -79,12 +79,18 @@ export default function OrderDetailPage() {
               <MenuName>{menu.name}</MenuName>
               <MenuPrice>{`${menu.price.toLocaleString()}원`}</MenuPrice>
 
-              <Counter>
-                <DecrementBtn onClick={() => handleDecrementBtnClick(menu.id)}>
+              <Counter data-cy="counter">
+                <DecrementBtn
+                  data-cy="decrementBtn"
+                  onClick={() => handleDecrementBtnClick(menu.id)}
+                >
                   -
                 </DecrementBtn>
                 {menu.count}
-                <IncrementBtn onClick={() => handleIncrementBtnClick(menu.id)}>
+                <IncrementBtn
+                  data-cy="incrementBtn"
+                  onClick={() => handleIncrementBtnClick(menu.id)}
+                >
                   +
                 </IncrementBtn>
               </Counter>
@@ -94,7 +100,9 @@ export default function OrderDetailPage() {
         <TotalPrice>{`주문금액: ${totalPrice.toLocaleString()}원`}</TotalPrice>
         <ButtonWrap>
           <MoreBtn onClick={handleMoreBtnClick}>더담기</MoreBtn>
-          <ConfirmBtn onClick={handleConfirmBtnClick}>주문완료</ConfirmBtn>
+          <ConfirmBtn data-cy="completeBtn" onClick={handleConfirmBtnClick}>
+            주문완료
+          </ConfirmBtn>
         </ButtonWrap>
       </Wrapper>
     </Profiler>

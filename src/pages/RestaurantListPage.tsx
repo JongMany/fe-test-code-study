@@ -33,7 +33,7 @@ export default function RestaurantListPage() {
   };
 
   return (
-    <Wrapper>
+    <Wrapper data-cy="restaurantWrapper">
       {restaurantList?.map((restaurant) => (
         <RestaurantListBtn
           data-cy={restaurant.id}

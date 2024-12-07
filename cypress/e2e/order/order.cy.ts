@@ -95,4 +95,39 @@ describe("주문을 테스트한다.", () => {
       cy.url().should("include", "/restaurant/1");
     });
   });
+
+  it("사용자는 원하는 메뉴를 장바구니에 담고, 원하는 음식 개수를 변경할 수 있다.", () => {
+    cy.visit("/restaurant/1");
+
+    cy.intercept(
+      {
+        method: "GET",
+        url: "/restaurant/1",
+      },
+      {
+        fixture: "menu.json",
+      }
+    );
+
+    cy.fixture("menu.json").then((menu) => {
+      cy.get(`[data-cy=${menu.menu_set[0].id}]`)
+        .should("be.visible")
+        .as("foodBtn");
+
+      cy.get("@foodBtn").click();
+
+      cy.url().should("include", "/order");
+    });
+
+    // 전역 상태를 유지하기 위해 하나의 테스트에서 계속 진행
+    cy.get("[data-cy=counter]").as("counter");
+    cy.get("@counter").should("contain", 1);
+    cy.get("[data-cy=incrementBtn]").should("be.visible").click();
+    cy.get("@counter").should("contain", 2);
+    cy.get("[data-cy=decrementBtn]").should("be.visible").click();
+    cy.get("@counter").should("contain", 1);
+
+    cy.get("[data-cy=completeBtn]").should("be.visible").click();
+    cy.url().should("include", "/");
+  });
 });
